@@ -1,0 +1,273 @@
+.App{
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+}
+
+
+/*----------------------NAV BAR----------------------------*/
+nav{
+  width: 60%;
+  margin: 5% auto;
+}
+
+nav ul{
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid black;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+nav ul li a{
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  padding: 20px 40px;
+  transition: all ease-in-out .5s;
+}
+
+nav ul li a:hover{
+  background-color: black;
+  color: white;
+}
+
+
+
+/*--------------------PAGE BODY---------------------*/
+#page-body{
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.article-content, .page-Content{
+  margin: 2% 20%;
+  text-align: justify;
+}
+
+.article-content, .page-Content p{
+  margin-bottom: 50px;
+}
+
+
+
+/*----------------------ARTICLES LIST-----------------------*/
+.articles-list{
+  width: 100%;
+  text-align: justify;
+}
+
+.articles-list a{
+  text-decoration: none;
+  color: black;
+  padding: 30px 10px;
+  border-bottom: solid 1px black;
+  transition: all ease .5s;
+}
+
+.articles-list a:hover{
+  color: white;
+  background-color: black;
+}
+
+.articles-list .card{
+  display: flex;
+  flex-direction: column;
+  margin: 0 30%;
+  text-align: justify;
+}
+
+.articles-list .card h3{
+  padding: 0;
+  margin: 0;
+}
+
+
+/*-------------------UPVOTES SECTION--------------------*/
+.upvotes-section{
+  width: 60%;
+  margin: 0 20%;
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upvotes-section button{
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  padding: 10px 30px;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all ease .5s;
+}
+
+.upvotes-section button:hover{
+  background-color: transparent;
+  color: inherit;
+}
+
+
+/*-------------------COMMENTS SECTION--------------------*/
+#add-comment-form{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 50px 0;
+  gap: 15px;
+}
+
+#add-comment-form h3{
+  text-transform: capitalize;
+}
+
+#add-comment-form label{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: baseline;
+  width: 100%;
+  justify-content: space-between;
+}
+
+#add-comment-form label input, textarea{
+  width: 379px;
+  padding: 6px 10px;
+}
+
+#add-comment-form button{
+  width: 400px;
+  background-color: black;
+  color: white;
+  padding: 10px 30px;
+  border: 1px solid black;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all ease .5s;
+}
+
+#add-comment-form button:hover{
+  background-color: transparent;
+  color: inherit;
+}
+
+.comments-list{
+  width: 50%;
+  margin: 10% 0;
+}
+
+.comments-list .comments{
+  margin-bottom: 20px;
+  border-bottom: 1px solid black;
+  padding-bottom: 10px;
+}
+
+
+/*------------------LOGIN/SIGNUP PAGE---------------------*/
+.login-page{
+  width: 60%;
+  margin: 5% auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-page form{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 5%;
+  gap: 20px;
+}
+
+.login-page form label{
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 20px;
+}
+
+.login-page form label .row{
+  width: 70%;
+}
+
+.login-page form .row input{
+  width: 232px;
+  padding: 8px 10px;
+}
+
+.login-page form label .confirm{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.login-page form .confirm input{
+  width: 232px;
+  padding: 8px 10px;
+}
+
+.form-btn{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.form-btn button{
+  width: 50%;
+  background-color: black;
+  color: white;
+  padding: 10px 30px;
+  border: 1px solid black;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: all ease .5s;
+}
+
+.form-btn button:hover{
+  background-color: transparent;
+  color: inherit;
+}
+
+.login-page .register-sect{
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.login-page .register-sect a{
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  transition: all ease-in-out .5s;
+}
+
+.login-page .register-sect a:hover{
+  color: purple;
+}
+
+
+/*------------------FOOTER---------------------*/
+
+.footer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  margin-top: 10%;
+  margin-bottom: 2%;
+}
