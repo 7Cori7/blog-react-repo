@@ -9,6 +9,7 @@ import NotFoundPage from './pages/not-found.jsx';
 import LoginPage from './pages/login.jsx';
 import SignUpPage from './pages/signup.jsx';
 import Footer from './components/footer.jsx';
+import { AuthProvider } from './contexts/authContext/index.jsx';
 
 
 function App() {
@@ -20,32 +21,33 @@ function App() {
 
       <div className='App'>
 
-        {/* Componente de barra de navegación: */}
-        <NavBar />
+        <AuthProvider>
+          {/* Componente de barra de navegación: */}
+          <NavBar />
 
-        {/* Cuerpo de las páginas: */}
-        <div id='page-body'>
+          {/* Cuerpo de las páginas: */}
+          <div id='page-body'>
 
-          <Routes>
+            <Routes>
 
-            <Route path='/' element={<HomePage />} />
+              <Route path='/' element={<HomePage />} />
 
-            <Route path='/about' element={<AboutPage />} />
+              <Route path='/about' element={<AboutPage />} />
 
-            <Route path='/articles' element={<ArticlesListPage />} />
+              <Route path='/articles' element={<ArticlesListPage />} />
 
-            <Route path='/articles/:articleId' element={<ArticlePage url={url} />} />
+              <Route path='/articles/:articleId' element={<ArticlePage url={url} />} />
 
-            <Route path='/login' element={<LoginPage />} />
+              <Route path='/login' element={<LoginPage />} />
 
-            <Route path='/signup' element={<SignUpPage />} />
+              <Route path='/signup' element={<SignUpPage />} />
 
-            <Route path='*' element={<NotFoundPage />} />
+              <Route path='*' element={<NotFoundPage />} />
 
-          </Routes>
-          
-        </div>
+            </Routes>
 
+          </div>
+        </AuthProvider>
         {/* Componente de barra de footer: */}
         <Footer />
       </div>

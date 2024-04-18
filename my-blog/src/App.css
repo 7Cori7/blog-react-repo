@@ -5,11 +5,25 @@
   font-size: 18px;
 }
 
+.error{
+  padding: 20px 50px;
+  background-color: lightcoral;
+  position: fixed;
+  top: 18%;
+}
+
 
 /*----------------------NAV BAR----------------------------*/
 nav{
   width: 60%;
   margin: 5% auto;
+}
+
+nav .display-user{
+  display: flex;
+  justify-content: end;
+  padding-bottom: 20px;
+  padding-right: 30px;
 }
 
 nav ul{
@@ -211,12 +225,19 @@ nav ul li a:hover{
   width: 100%;
   display: flex;
   justify-content: end;
+  position: relative;
 }
 
 .login-page form .confirm input{
   width: 232px;
   padding: 8px 10px;
 }
+
+.login-page form .confirm span{
+  position: absolute;
+  top: 40px;
+  font-size: 15px;
+} 
 
 .form-btn{
   width: 100%;
@@ -226,7 +247,7 @@ nav ul li a:hover{
 }
 
 .form-btn button{
-  width: 50%;
+  width: 90%;
   background-color: black;
   color: white;
   padding: 10px 30px;
