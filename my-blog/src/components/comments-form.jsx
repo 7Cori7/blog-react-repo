@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../contexts/authContext";
 import axios from 'axios';
 
 export default function CommentsForm({url, articleName, updateArticle}){
 
+    const { currentUser } = useAuth();
     const [name, setName] = useState('');
     const [comment, setcomment] = useState('');
 
@@ -21,11 +23,36 @@ export default function CommentsForm({url, articleName, updateArticle}){
 
             setName('');
             setcomment('');
-            
+
         } catch (error) {
             console.log(error);
         }
     }
+
+    async function getUsername(){
+        try {
+
+            const response = await axios.get(`${url}/api/get/users`);
+            const usersList = response.data.data;
+
+            if(usersList && usersList.length > 0 && currentUser){
+
+                const currUser = usersList.filter(i => i.email === currentUser.email);
+
+                if(currUser){
+                    setName(currUser[0].name);
+                }
+            }
+        } catch (error) {
+
+            throw new Error(error);
+        }
+    }
+
+    useEffect(()=>{
+
+        getUsername();
+    }, []);
 
     return <div id="add-comment-form">
 

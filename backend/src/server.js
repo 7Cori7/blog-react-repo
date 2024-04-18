@@ -12,6 +12,7 @@ require("dotenv").config();
 const AboutPage = require('../models/About');
 const Article = require('../models/Articles');
 const HomePage = require('../models/Home');
+const Users = require('../models/User');
 
 app.use(express.json());
 app.use(cors());
@@ -24,6 +25,47 @@ mongoose
   .catch((err) => console.error("Could not connect to MongoDB...", err));
 
 
+// Create new user endpoint  
+app.post('/api/create/user', async (req, res) => {
+
+    const { email, name } = req.body;
+
+    try {
+
+        if(email && name){
+
+            await Users.create(req.body);
+
+            return res.status(200).json({message:'New user created!'});
+
+        }else if(await Users.findOne({email: email})){
+
+            return res.sendStatus(400).json({error:'The user already exist'});
+        }else{
+
+            return res.sendStatus(400);
+        }
+        
+    } catch (error) {
+
+        return res.sendStatus(400);
+    }
+});
+
+// Get users endpoint:
+app.get('/api/get/users', async (req, res)=>{
+
+    try {
+
+        const userList = await Users.find();
+
+        return res.status(200).json({ok:true, data:userList});
+        
+    } catch (error) {
+
+        return res.sendStatus(400);
+    }
+});
 
 // Load Article endpoint:
 app.get('/api/articles/:name', async (req,res)=>{
@@ -51,19 +93,27 @@ app.get('/api/articles/:name', async (req,res)=>{
 app.put('/api/articles/:name/upvote', async (req,res) => {
 
     const {name} = req.params;
+    const {user} = req.body;
 
     try {
 
-        const updateArticle = await Article.findOneAndUpdate({name: name},{$inc: {votes: 1}});
+        let updateArticle;
 
-        await updateArticle.save();
+        if(await Article.findOne({name: name, users: user})){
 
-        if(updateArticle){
+            updateArticle = await Article.findOneAndUpdate({name: name}, {$inc: {votes: -1}, $pull: {users: user}});
+            
+            await updateArticle.save();
 
             return res.status(200).json({ updateArticle });
+
         }else{
 
-            return res.sendStatus(404);
+            updateArticle = await Article.findOneAndUpdate({name: name}, {$inc: {votes: 1}, $push: {users: user}});
+
+            await updateArticle.save();
+
+            return res.status(200).json({ updateArticle });
         }
 
     }catch(error){

@@ -6,6 +6,7 @@ const articleSchema = new mongoose.Schema({
     content: Array,
     votes: Number,
     comments: Array,
+    users: Array,
 });
 
 const Article = mongoose.model('Article', articleSchema);

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useAuth } from "../contexts/authContext";
 import axios from 'axios';
 import articles from './article-content';
 import NotFoundPage from "./not-found";
@@ -7,6 +8,8 @@ import CommentsList from "../components/comments-list.jsx";
 import CommentsForm from "../components/comments-form.jsx";
 
 export default function ArticlePage({url}){
+
+    const { currentUser } = useAuth();
 
     const {articleId} = useParams();
 
@@ -18,6 +21,7 @@ export default function ArticlePage({url}){
 
     // TODO: make a spinner to display when loading
 
+    //* GET DATA:
     async function getData(){
         try{
 
@@ -29,7 +33,7 @@ export default function ArticlePage({url}){
             if(article){
 
                 setTimeout(()=>{
-                    setArticleInfo({votes: article.article.votes, comments: article.article.comments});
+                    setArticleInfo({votes: article.article.votes, comments: article.article.comments, users: article.article.users});
                     setLoading(false);
                 }, 1000);
             }
@@ -37,30 +41,38 @@ export default function ArticlePage({url}){
         }catch(error){
             console.error(error);
         }
-    }
+    };
 
     useEffect(()=>{
         
         getData();
     },[]);
 
+    //* UPVOTE ARTICLE:
     async function upvoteArticle(){
 
         try {
 
-            await axios.put(`${url}/api/articles/${articleId}/upvote`);
+            if(currentUser !== null){
 
-            getData();
+                const obj = {
+                    user: currentUser.email
+                }
+
+                await axios.put(`${url}/api/articles/${articleId}/upvote`, obj);
+                
+                getData();
+            }
             
         } catch (error) {
             console.log(error)
         }
-    }
+    };
 
     if(!article){
         
         return <NotFoundPage />
-    }
+    };
 
     return <>
     
@@ -71,7 +83,7 @@ export default function ArticlePage({url}){
                 loading ? <p>Loading data⌛...Please wait</p>
                 : <p>This article has {articleInfo.votes} upvote(s)</p>
             }
-            <button onClick={upvoteArticle}>upvote</button>
+            <button onClick={upvoteArticle}>Upvote</button>
         </div>
         
         <div className="article-content">

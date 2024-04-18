@@ -9,21 +9,27 @@ export default function LoginPage(){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [errorMsg, setErrorMsg] = useState(null);
 
     async function handleLogin(e){
 
-        e.preventDefault();
-        if(!email || !password){
+        try {
 
-            setErrorMsg('Error! ❌ All inputs must be filled out!');
-        }else{
+            e.preventDefault();
+            if(!email || !password){
 
-            if(!isLoggedIn){
-                setIsLoggedIn(true);
-                await doSignInWithEmailAndPassword(email, password);
+                setErrorMsg('Error! ❌ All inputs must be filled out!');
+            }else{
+
+                if(!userLoggedIn){
+                    
+                    await doSignInWithEmailAndPassword(email, password);
+                }
             }
+
+        } catch (error) {
+            console.log(error)
+            setErrorMsg('Error! ❌ The user or the password are wrong');
         }
 
         setTimeout(()=>{
@@ -34,8 +40,6 @@ export default function LoginPage(){
     return <div className="login-page">
 
         {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
-        
-        {isLoggedIn && (<Navigate to={'/'} replace={true} />)}
 
         {errorMsg !== null && <p className="error">{errorMsg}</p>}
 

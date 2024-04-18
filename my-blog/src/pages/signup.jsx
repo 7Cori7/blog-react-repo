@@ -1,11 +1,9 @@
 import { Link, Navigate } from "react-router-dom";
-import React, { useState } from "react";
-import { useAuth } from "../contexts/authContext";
+import React, { useEffect, useState } from "react";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
+import axios from "axios";
 
-export default function SignUpPage(){
-
-    const { userLoggedIn } = useAuth();
+export default function SignUpPage({url}){
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -14,6 +12,7 @@ export default function SignUpPage(){
     const [isRegisted, setIsRegisted] = useState(false);
     const [errorMsg, setErrorMsg] = useState(null);
     const [noMatch, setNoMatch] = useState(false);
+    const [users, setUsers] =useState([]);
 
     async function handleSubmit(e){
 
@@ -31,8 +30,24 @@ export default function SignUpPage(){
                 setNoMatch(false);
                 
                 if(!isRegisted){
-                    setIsRegisted(true);
-                    await doCreateUserWithEmailAndPassword(email, password);
+
+                    const userExist = users.some(i=> i.email === email);
+
+                    if(userExist){
+
+                        setErrorMsg('Error! ❌ The user\'s email already exist!');
+                    }else{
+
+                        setIsRegisted(true);
+                        await doCreateUserWithEmailAndPassword(email, password);
+    
+                        const obj = {
+                            email: email,
+                            name: name
+                        };
+                        
+                        await axios.post(`${url}/api/create/user`, obj);
+                    }
                 }
             }
         }
@@ -42,13 +57,32 @@ export default function SignUpPage(){
         }, 2000);
     }
 
+    async function getUsers(){
+
+        try {
+
+            const response = await axios.get(`${url}/api/get/users`);
+            const data = response.data;
+
+            if(data){
+                setUsers(data.data);
+            }
+            
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    useEffect(()=>{
+
+        getUsers();
+    }, []);
+
     return <div className="login-page">
 
         {errorMsg !== null && <p className="error">{errorMsg}</p>}
 
         {isRegisted && (<Navigate to={'/login'} replace={true} />)}
-
-        {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
 
         <h1>Create Account</h1>
         <form onSubmit={handleSubmit}>

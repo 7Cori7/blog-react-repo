@@ -1,13 +1,13 @@
 require("dotenv").config();
 const mongoose = require('mongoose');
 
-const AboutPage = require('../models/About');
+//const AboutPage = require('../models/About');
 const Article = require('../models/Articles');
-const HomePage = require('../models/Home');
+//const HomePage = require('../models/Home');
 
 const { articles } = require('./articles-data');
-const { homedata } = require('./home-data');
-const { aboutdata } = require('./about-data');
+//const { homedata } = require('./home-data');
+//const { aboutdata } = require('./about-data');
 
 const mongoURI = process.env.MONGO_URI;
 
@@ -21,8 +21,8 @@ const importData = async () => {
 
     try{
   
-      await AboutPage.deleteMany(); // Optional: clear the collection before insertion
-      await AboutPage.insertMany(aboutdata);
+      await Article.deleteMany(); // Optional: clear the collection before insertion
+      await Article.insertMany(articles);
       console.log("Data successfully imported to MongoDB!");
       mongoose.disconnect();
   
