@@ -12,6 +12,14 @@
   top: 18%;
 }
 
+.message{
+  padding: 20px 50px;
+  background-color: lightseagreen;
+  position: fixed;
+  top: 18%;
+  left: 34%;
+}
+
 
 /*----------------------NAV BAR----------------------------*/
 nav{

@@ -6,6 +6,7 @@ import articles from './article-content';
 import NotFoundPage from "./not-found";
 import CommentsList from "../components/comments-list.jsx";
 import CommentsForm from "../components/comments-form.jsx";
+import Message from "../components/message.jsx";
 
 export default function ArticlePage({url}){
 
@@ -18,6 +19,9 @@ export default function ArticlePage({url}){
     const [articleInfo, setArticleInfo] = useState({votes: 0, comments: []});
 
     const [loading, setLoading] = useState(false);
+
+    const [error, setError] = useState(false);
+    const [message, setMessage] = useState(null);
 
     // TODO: make a spinner to display when loading
 
@@ -62,7 +66,15 @@ export default function ArticlePage({url}){
                 await axios.put(`${url}/api/articles/${articleId}/upvote`, obj);
                 
                 getData();
+            }else{
+
+                setMessage('You must be logged in to upvote this article')
             }
+
+            setTimeout(()=>{
+                setMessage(null);
+                setError(false);
+            }, 2000);
             
         } catch (error) {
             console.log(error)
@@ -75,6 +87,8 @@ export default function ArticlePage({url}){
     };
 
     return <>
+
+        {message !== null && <Message error={error} message={message} />}
     
         <h1>{article.title}</h1>
 

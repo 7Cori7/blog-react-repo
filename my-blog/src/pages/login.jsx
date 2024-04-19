@@ -2,6 +2,7 @@ import { Link, Navigate } from "react-router-dom";
 import { doSignInWithEmailAndPassword } from "../firebase/auth.js";
 import { useState } from "react";
 import { useAuth }  from "../contexts/authContext/index.jsx";
+import Message from "../components/message.jsx";
 
 export default function LoginPage(){
 
@@ -9,7 +10,8 @@ export default function LoginPage(){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMsg, setErrorMsg] = useState(null);
+    const [message, setMessage] = useState(null);
+    const [error, setError] = useState(false);
 
     async function handleLogin(e){
 
@@ -17,23 +19,26 @@ export default function LoginPage(){
 
             e.preventDefault();
             if(!email || !password){
-
-                setErrorMsg('Error! ❌ All inputs must be filled out!');
+                setError(true);
+                setMessage('Error! ❌ All inputs must be filled out!');
             }else{
 
                 if(!userLoggedIn){
-                    
+
+                    setError(false);
                     await doSignInWithEmailAndPassword(email, password);
                 }
             }
 
         } catch (error) {
             console.log(error)
-            setErrorMsg('Error! ❌ The user or the password are wrong');
+            setError(true);
+            setMessage('Error! ❌ The user or the password are wrong');
         }
 
         setTimeout(()=>{
-            setErrorMsg(null);
+            setMessage(null);
+            setError(false);
         }, 2000);
     }
 
@@ -41,7 +46,7 @@ export default function LoginPage(){
 
         {userLoggedIn && (<Navigate to={'/'} replace={true} />)}
 
-        {errorMsg !== null && <p className="error">{errorMsg}</p>}
+        {message !== null && <Message error={error} message={message} />}
 
         <h1>Login</h1>
         <form onSubmit={handleLogin}>

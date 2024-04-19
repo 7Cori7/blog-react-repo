@@ -28,9 +28,9 @@ export default function NavBar(){
             </li>
             <li>
                 {
-                userLoggedIn
-                ? <Link onClick={()=>{ doSignOut().then( () => { navigate('/login') } ) }}>Logout</Link>
-                : <Link to='/login'>Login</Link>
+                    userLoggedIn
+                    ? <Link onClick={()=>{ doSignOut().then( () => { navigate('/login') } ) }}>Logout</Link>
+                    : <Link to='/login'>Login</Link>
                 }
             </li>
         </ul>

@@ -1,7 +1,8 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { doCreateUserWithEmailAndPassword } from "../firebase/auth";
 import axios from "axios";
+import Message from "../components/message";
 
 export default function SignUpPage({url}){
 
@@ -10,53 +11,78 @@ export default function SignUpPage({url}){
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
     const [isRegisted, setIsRegisted] = useState(false);
-    const [errorMsg, setErrorMsg] = useState(null);
+    const [message, setMessage] = useState(null);
+    const [error, setError] = useState(false);
     const [noMatch, setNoMatch] = useState(false);
     const [users, setUsers] =useState([]);
 
     async function handleSubmit(e){
 
         e.preventDefault();
-        if(!name || !email || !password || !confirmPass){
 
-            setErrorMsg('Error! ❌ All inputs must be filled out!');
-        }else{
+        try {
 
-            if(password !== confirmPass){
+            if(!name || !email || !password || !confirmPass){
 
-                setNoMatch(true); 
+                setError(true);
+                setMessage('Error! ❌ All inputs must be filled out!');
             }else{
-
-                setNoMatch(false);
-                
-                if(!isRegisted){
-
-                    const userExist = users.some(i=> i.email === email);
-
-                    if(userExist){
-
-                        setErrorMsg('Error! ❌ The user\'s email already exist!');
-                    }else{
-
-                        setIsRegisted(true);
-                        await doCreateUserWithEmailAndPassword(email, password);
     
-                        const obj = {
-                            email: email,
-                            name: name
-                        };
-                        
-                        await axios.post(`${url}/api/create/user`, obj);
+                if(password !== confirmPass){
+    
+                    setNoMatch(true); 
+                }else{
+    
+                    setNoMatch(false);
+                    
+                    if(!isRegisted){
+    
+                        const userExist = users.some(i=> i.email === email);
+    
+                        if(userExist){
+    
+                            setError(true);
+                            setMessage('Error! ❌ The user\'s email already exist!');
+                        }else{
+    
+                            //* Register user:
+                            setError(false);
+                            setMessage('The user has been successfully created!');
+                            setIsRegisted(true);
+    
+                            // Firebase auth:
+                            await doCreateUserWithEmailAndPassword(email, password);
+        
+                            // Post to mongoDB endpoint:
+                            const obj = {
+                                email: email,
+                                name: name
+                            };
+    
+                            await axios.post(`${url}/api/create/user`, obj);
+    
+                            // Redirect to home page:
+                            setTimeout(()=>{
+    
+                                navigate('/');
+                            },2000);
+                        }
                     }
                 }
             }
+            
+            // Timeout message popup:
+            setTimeout(()=>{
+                setMessage(null);
+                setError(false);
+            }, 2000);
+            
+        } catch (error) {
+            console.log(error)
         }
+    };
 
-        setTimeout(()=>{
-            setErrorMsg(null);
-        }, 2000);
-    }
-
+    //* Get users from api endpoint
     async function getUsers(){
 
         try {
@@ -78,13 +104,15 @@ export default function SignUpPage({url}){
         getUsers();
     }, []);
 
+    //* Function to navigate to home page:
+    const navigate = useNavigate();
+    
     return <div className="login-page">
 
-        {errorMsg !== null && <p className="error">{errorMsg}</p>}
-
-        {isRegisted && (<Navigate to={'/login'} replace={true} />)}
+        {message !== null && <Message error={error} message={message} />}
 
         <h1>Create Account</h1>
+
         <form onSubmit={handleSubmit}>
             <label>
                 Name:
@@ -101,7 +129,7 @@ export default function SignUpPage({url}){
             <label>
                 Password:
                 <div className="row">
-                    <input type="password" placeholder="Please eneter your password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+                    <input type="password" placeholder="Please enter your password" value={password} onChange={(e)=>setPassword(e.target.value)} />
                 </div>
             </label>
             <label>
@@ -115,7 +143,7 @@ export default function SignUpPage({url}){
             </div>
         </form>
         <div className="register-sect">
-            Alredy have an account?
+            Already have an account?
             <Link to='/login'>Login Here</Link>
         </div>
     </div>
