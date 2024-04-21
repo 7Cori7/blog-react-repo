@@ -20,11 +20,25 @@
   left: 34%;
 }
 
+.spinner{
+  margin-left: 5%;
+}
+
+@media (max-width:768px){
+  .message{
+    left: 0;
+  }
+}
+
 
 /*----------------------NAV BAR----------------------------*/
 nav{
   width: 60%;
   margin: 5% auto;
+}
+
+nav .mobile-menu{
+  display: none;
 }
 
 nav .display-user{
@@ -34,7 +48,7 @@ nav .display-user{
   padding-right: 30px;
 }
 
-nav ul{
+nav .pc-nav{
   list-style: none;
   display: flex;
   justify-content: space-between;
@@ -45,7 +59,7 @@ nav ul{
   padding-right: 20px;
 }
 
-nav ul li a{
+nav .pc-nav li a{
   text-decoration: none;
   font-weight: bold;
   color: black;
@@ -53,19 +67,111 @@ nav ul li a{
   transition: all ease-in-out .5s;
 }
 
-nav ul li a:hover{
+nav .pc-nav li a:hover{
   background-color: black;
   color: white;
+}
+
+@media (max-width:768px){
+  nav{
+    width: 90%;
+  }
+  nav .pc-nav{
+    display: none;
+  }
+
+  nav .display-user{
+    display: none;
+  }
+
+  nav .mobile-menu{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 5;
+    position: relative;
+  }
+
+  nav .mobile-menu button{
+    border: none;
+    background-color: white;
+    padding-right: 5%;
+    margin: 0;
+    cursor: pointer;
+    z-index: 7;
+    position: fixed;
+    right: 0;
+  }
+
+  nav .mobile-menu button span{
+    font-size: 40px;
+  }
+
+  nav .mobile-menu h3{
+    font-weight: bolder;
+  }
+  
+  nav .mobile-menu .mobile-menu-list{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    top: 0;
+    left: 0;
+    margin: 0;
+    z-index: 6;
+    transition: all ease-in-out 1s;
+    animation-name: animated-menu;
+    animation-duration: 1s;
+  }
+
+  nav .mobile-menu .mobile-menu-list ul{
+    list-style: none;
+    padding-top: 40%;
+    padding-left: 0;
+    font-size: 30px;
+  }
+
+  nav .mobile-menu .mobile-menu-list ul li{
+    padding-bottom: 30px;
+  }
+
+  nav .mobile-menu .mobile-menu-list ul li a{
+    color: black;
+    text-decoration: none;
+  }
+}
+
+@keyframes animated-menu{
+  from{
+      opacity: 0;
+      top: -200px;
+  }
+  to{
+      opacity: 1;
+      top: 0;
+  }
 }
 
 
 
 /*--------------------PAGE BODY---------------------*/
+
 #page-body{
   text-align: center;
   margin: 0;
   padding: 0;
   width: 100%;
+}
+
+.titles{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-left: 5%;
 }
 
 .article-content, .page-Content{
@@ -77,6 +183,21 @@ nav ul li a:hover{
   margin-bottom: 50px;
 }
 
+@media (max-width:768px){
+
+  #page-body{
+    width: 90%;
+  }
+  #page-body .title{
+    width: 110%;
+    display: flex;
+    justify-content: center;
+  }
+  .article-content, .page-Content{
+    margin: 2% 5%;
+    width: 100%;
+  }
+}
 
 
 /*----------------------ARTICLES LIST-----------------------*/
@@ -110,6 +231,13 @@ nav ul li a:hover{
   margin: 0;
 }
 
+@media (max-width:768px){
+  .articles-list .card{
+    margin: 0 10%;
+    width: 85%;
+  }
+}
+
 
 /*-------------------UPVOTES SECTION--------------------*/
 .upvotes-section{
@@ -134,6 +262,14 @@ nav ul li a:hover{
 .upvotes-section button:hover{
   background-color: transparent;
   color: inherit;
+}
+
+@media (max-width:768px){
+  .upvotes-section{
+    margin: 0 5%;
+    width: 100%;
+    flex-direction: column;
+  }
 }
 
 
@@ -189,6 +325,50 @@ nav ul li a:hover{
   margin-bottom: 20px;
   border-bottom: 1px solid black;
   padding-bottom: 10px;
+}
+
+@media (max-width:768px){
+
+  #add-comment-form{
+    width: 100%;
+    align-items: center;
+  }
+
+  #add-comment-form label{
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #add-comment-form label .label-text{
+    width: 86%;
+    display: flex;
+  }
+
+  #add-comment-form label input, textarea{
+    width: 80%;
+    padding: 6px 10px;
+  }
+
+  #add-comment-form button{
+    width: 80%;
+  }
+
+  .comments-list{
+    width: 100%;
+  }
+
+  .comments-list h3{
+    text-align: center;
+  }
+
+  .comments-list .comments{
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }
 
 
@@ -286,6 +466,35 @@ nav ul li a:hover{
 
 .login-page .register-sect a:hover{
   color: purple;
+}
+
+@media (max-width:768px){
+  .login-page{
+    width: 100%;
+    margin: 5%;
+  }
+
+  .login-page form{
+    width: 80%;
+    margin-top: 5%;
+  }
+
+  .login-page form label{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+  }
+
+  .login-page form label .row{
+    width: 90%;
+  }
+
+  .login-page form .row input{
+    width: 100%;
+  }
+
 }
 
 

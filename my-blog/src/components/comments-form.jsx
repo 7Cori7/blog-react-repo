@@ -37,10 +37,10 @@ export default function CommentsForm({url, articleName, updateArticle}){
 
             if(usersList && usersList.length > 0 && currentUser){
 
-                const currUser = usersList.filter(i => i.email === currentUser.email);
+                const currUser = usersList.find(i => i.email === currentUser.email);
 
                 if(currUser){
-                    setName(currUser[0].name);
+                    setName(currUser.name);
                 }
             }
         } catch (error) {
@@ -59,12 +59,12 @@ export default function CommentsForm({url, articleName, updateArticle}){
         <h3>Add a comment</h3>
 
         <label>
-            Name:
+            <div className="label-text">Name:</div>
             <input type="text" value={name} onChange={(e)=>setName(n=>n=e.target.value)} />
         </label>
 
         <label>
-            Comment:
+            <div className="label-text">Comment:</div>
             <textarea name="comment" cols="50" rows="4" value={comment} onChange={(e)=>setcomment(c=>c=e.target.value)}></textarea>
         </label>
 

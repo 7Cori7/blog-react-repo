@@ -7,8 +7,9 @@ export default function HomePage(){
             homeContent.map((item, index) => (
 
                 <div key={index}>
-
-                    <h1>{item.title}</h1>
+                    <div className='titles'>
+                        <h1>{item.title}</h1>
+                    </div>
 
                     <div className="page-Content">
                         {

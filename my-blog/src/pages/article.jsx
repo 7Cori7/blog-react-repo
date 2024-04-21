@@ -7,23 +7,20 @@ import NotFoundPage from "./not-found";
 import CommentsList from "../components/comments-list.jsx";
 import CommentsForm from "../components/comments-form.jsx";
 import Message from "../components/message.jsx";
+import Spinner from "../components/spinner.jsx";
 
 export default function ArticlePage({url}){
 
     const { currentUser } = useAuth();
-
     const {articleId} = useParams();
 
     const article = articles.find(article => article.name === articleId);
-    
-    const [articleInfo, setArticleInfo] = useState({votes: 0, comments: []});
+    const [articleInfo, setArticleInfo] = useState({votes: 0, comments: [], users: []});
+    const [voted, setVoted] = useState(false);
 
     const [loading, setLoading] = useState(false);
-
     const [error, setError] = useState(false);
     const [message, setMessage] = useState(null);
-
-    // TODO: make a spinner to display when loading
 
     //* GET DATA:
     async function getData(){
@@ -51,6 +48,21 @@ export default function ArticlePage({url}){
         
         getData();
     },[]);
+
+    //* WHEN ARTICLE INFO IS UPDATED:
+    useEffect(()=>{
+
+        // Check if there's an user logged in:
+        if(currentUser){
+
+            // Check if the user voted the article or not:
+            const userVoted = articleInfo.users.some(user => user === currentUser.email);
+            setVoted(userVoted);
+        }else{
+
+            setVoted(false);
+        }
+    }, [articleInfo]);
 
     //* UPVOTE ARTICLE:
     async function upvoteArticle(){
@@ -81,23 +93,34 @@ export default function ArticlePage({url}){
         }
     };
 
+    // If the article doesn't exist:
     if(!article){
         
         return <NotFoundPage />
     };
 
+    // If the article exist:
     return <>
 
         {message !== null && <Message error={error} message={message} />}
-    
-        <h1>{article.title}</h1>
 
+        <div className="title">
+            <h1>{article.title}</h1>
+        </div>
+        
         <div className="upvotes-section">
             {
-                loading ? <p>Loading data⌛...Please wait</p>
+                loading ? <Spinner />
                 : <p>This article has {articleInfo.votes} upvote(s)</p>
             }
-            <button onClick={upvoteArticle}>Upvote</button>
+            <button onClick={upvoteArticle}>
+                {
+                    voted ? <div style={{display:'flex', justifyContent:'center', alignItems:'center', gap:'2px'}}> 
+                        Voted<span className="material-symbols-outlined">done</span>
+                        </div>
+                    : 'Upvote'
+                }
+            </button>
         </div>
         
         <div className="article-content">
@@ -111,7 +134,7 @@ export default function ArticlePage({url}){
             <CommentsForm url={url} articleName={articleId} updateArticle={getData} />
 
             {
-                loading ? <p>Loading data⌛...Please wait</p>
+                loading ? <Spinner />
                 : <CommentsList comments={articleInfo.comments} />
             }
         </div>

@@ -5,7 +5,9 @@ export default function ArticlesListPage(){
 
     return <>
 
-        <h1>Articles</h1>
+        <div className='titles'>
+            <h1>Articles</h1>
+        </div>
 
         <div className='articles-list'>
 
