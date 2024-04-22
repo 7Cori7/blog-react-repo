@@ -11,10 +11,6 @@ export default function NavBar(){
 
     const navigate = useNavigate();
 
-    function closeMenu(){
-        setOpenMenu(false);
-    };
-
     function handleLogout(){
 
         if(openMenu){
@@ -68,19 +64,19 @@ export default function NavBar(){
                     <div className="mobile-menu-list">
                         <ul>
                             <li>
-                                <Link to='/' onClick={closeMenu}>Home</Link>
+                                <Link to='/' onClick={()=>setOpenMenu(false)}>Home</Link>
                             </li>
                             <li>
-                                <Link to='/articles' onClick={closeMenu}>Articles</Link>
+                                <Link to='/articles' onClick={()=>setOpenMenu(false)}>Articles</Link>
                             </li>
                             <li>
-                                <Link to='/about' onClick={closeMenu}>About</Link>
+                                <Link to='/about' onClick={()=>setOpenMenu(false)}>About</Link>
                             </li>
                             <li>
                                 {
                                     userLoggedIn
                                     ? <Link onClick={handleLogout}>Logout</Link>
-                                    : <Link to='/login' onClick={closeMenu}>Login</Link>
+                                    : <Link to='/login' onClick={()=>setOpenMenu(false)}>Login</Link>
                                 }
                             </li>
                         </ul>

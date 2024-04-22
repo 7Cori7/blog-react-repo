@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import NavBar from './components/navbar.jsx';
 import HomePage from './pages/home-page.jsx';
 import AboutPage from './pages/about.jsx';
@@ -10,18 +11,35 @@ import LoginPage from './pages/login.jsx';
 import SignUpPage from './pages/signup.jsx';
 import Footer from './components/footer.jsx';
 import { AuthProvider } from './contexts/authContext/index.jsx';
+import useLocalStorage from './components/useLocalStorage.jsx';
 
 
 function App() {
 
   const url = import.meta.env.VITE_REACT_APP_API_URL; //<--así se usan las env en react
 
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  
+  function handleToggleTheme(){
+    setTheme(t => t === 'light' ? 'dark' : 'light');
+  };
+
   return (
     <BrowserRouter>
 
-      <div className='App'>
+      <div className='App' data-theme={theme}>
 
         <AuthProvider>
+          {/* Cambiar tema claro/oscuro */}
+          <div className='theme-btn-container'>
+            <input type='checkbox' id='toggle-btn' onChange={handleToggleTheme}/>
+            <label htmlFor="toggle-btn" className='toggle-bg'></label>
+            <div className='icons'>
+              <span className="material-symbols-outlined sun">light_mode</span>
+              <span className="material-symbols-outlined moon">dark_mode</span>
+            </div>
+          </div>
+
           {/* Componente de barra de navegación: */}
           <NavBar />
 

@@ -1,8 +1,28 @@
+:root{
+  --background : #ffffff;
+  --text-primary : #000000;
+  --button-bg : #000000;
+  --button-text : #ffffff;
+  --border : #000000;
+}
+
+[data-theme ='dark']{
+  --background : #1b1b1b;
+  --text-primary : #ffffff;
+  --button-bg : #ffffff;
+  --button-text : #1b1b1b;
+  --border : #ffffff;
+}
+
 .App{
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
+  background-color: var(--background);
+  color: var(--text-primary);
+  padding-bottom: 5%;
+  position: relative;
 }
 
 .error{
@@ -18,6 +38,7 @@
   position: fixed;
   top: 18%;
   left: 34%;
+  margin: 0 auto;
 }
 
 .spinner{
@@ -28,13 +49,72 @@
   .message{
     left: 0;
   }
+  .spinner{
+    margin-left: 0;
+  }
 }
+
+
+/*------------------------LIGTH/DARK MODE BTN-------------------------*/
+.theme-btn-container{
+  padding: 15px;
+}
+@media (max-width:768px){
+  .theme-btn-container{
+    padding-top: 10px;
+    padding-left: 15px;
+  }
+}
+.toggle-bg{
+  width: 50px;
+  height: 20px;
+  position: relative;
+  display: block;
+  background-color: var(--background);
+  border-radius: 20px;
+  box-shadow: inset 0px 3px 13px rgba(0,0,0,0.4), inset 0px -3px 13px rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.toggle-bg:after{
+  content: "";
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  background-color: white;
+  border-radius: 18px;
+  transition: 0.3s;
+}
+#toggle-btn{
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  display: none;
+}
+#toggle-btn:checked + .toggle-bg:after{
+  left: 48px;
+  transform: translateX(-100%);
+  background-color: gray;
+}
+.toggle-bg:active::after{
+  width: 25px;
+}
+.icons{
+  display: flex;
+  gap: 10px;
+}
+.sun, .moon{
+  font-size: 20px;
+}
+
 
 
 /*----------------------NAV BAR----------------------------*/
 nav{
   width: 60%;
-  margin: 5% auto;
+  margin: 0 auto;
 }
 
 nav .mobile-menu{
@@ -54,7 +134,7 @@ nav .pc-nav{
   justify-content: space-between;
   align-items: center;
   padding-bottom: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border);
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -62,19 +142,20 @@ nav .pc-nav{
 nav .pc-nav li a{
   text-decoration: none;
   font-weight: bold;
-  color: black;
+  color: var(--text-primary);
   padding: 20px 40px;
   transition: all ease-in-out .5s;
 }
 
 nav .pc-nav li a:hover{
-  background-color: black;
-  color: white;
+  background-color: var(--button-bg);
+  color: var(--button-text);
 }
 
 @media (max-width:768px){
   nav{
     width: 90%;
+    margin: -5% auto;
   }
   nav .pc-nav{
     display: none;
@@ -95,7 +176,7 @@ nav .pc-nav li a:hover{
 
   nav .mobile-menu button{
     border: none;
-    background-color: white;
+    background-color: var(--background);
     padding-right: 5%;
     margin: 0;
     cursor: pointer;
@@ -106,10 +187,12 @@ nav .pc-nav li a:hover{
 
   nav .mobile-menu button span{
     font-size: 40px;
+    color: var(--text-primary);
   }
 
   nav .mobile-menu h3{
     font-weight: bolder;
+    color: var(--text-primary);
   }
   
   nav .mobile-menu .mobile-menu-list{
@@ -118,7 +201,8 @@ nav .pc-nav li a:hover{
     position: fixed;
     display: flex;
     justify-content: center;
-    background-color: white;
+    align-items: center;
+    background-color: var(--background);
     top: 0;
     left: 0;
     margin: 0;
@@ -130,7 +214,6 @@ nav .pc-nav li a:hover{
 
   nav .mobile-menu .mobile-menu-list ul{
     list-style: none;
-    padding-top: 40%;
     padding-left: 0;
     font-size: 30px;
   }
@@ -140,7 +223,7 @@ nav .pc-nav li a:hover{
   }
 
   nav .mobile-menu .mobile-menu-list ul li a{
-    color: black;
+    color: var(--text-primary);
     text-decoration: none;
   }
 }
@@ -167,13 +250,6 @@ nav .pc-nav li a:hover{
   width: 100%;
 }
 
-.titles{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding-left: 5%;
-}
-
 .article-content, .page-Content{
   margin: 2% 20%;
   text-align: justify;
@@ -187,6 +263,12 @@ nav .pc-nav li a:hover{
 
   #page-body{
     width: 90%;
+  }
+  .titles{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-left: 5%;
   }
   #page-body .title{
     width: 110%;
@@ -208,15 +290,15 @@ nav .pc-nav li a:hover{
 
 .articles-list a{
   text-decoration: none;
-  color: black;
+  color: var(--text-primary);
   padding: 30px 10px;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px var(--border);
   transition: all ease .5s;
 }
 
 .articles-list a:hover{
-  color: white;
-  background-color: black;
+  color: var(--button-text);
+  background-color: var(--button-bg);
 }
 
 .articles-list .card{
@@ -250,9 +332,9 @@ nav .pc-nav li a:hover{
 }
 
 .upvotes-section button{
-  background-color: black;
-  color: white;
-  border: 1px solid black;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--border);
   padding: 10px 30px;
   text-transform: capitalize;
   cursor: pointer;
@@ -302,10 +384,10 @@ nav .pc-nav li a:hover{
 
 #add-comment-form button{
   width: 400px;
-  background-color: black;
-  color: white;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   padding: 10px 30px;
-  border: 1px solid black;
+  border: 1px solid var(--border);
   text-transform: capitalize;
   cursor: pointer;
   transition: all ease .5s;
@@ -323,7 +405,7 @@ nav .pc-nav li a:hover{
 
 .comments-list .comments{
   margin-bottom: 20px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 10px;
 }
 
@@ -354,7 +436,7 @@ nav .pc-nav li a:hover{
   }
 
   #add-comment-form button{
-    width: 80%;
+    width: 85%;
   }
 
   .comments-list{
@@ -387,7 +469,7 @@ nav .pc-nav li a:hover{
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid var(--border);
   padding: 5%;
   gap: 20px;
 }
@@ -436,10 +518,10 @@ nav .pc-nav li a:hover{
 
 .form-btn button{
   width: 90%;
-  background-color: black;
-  color: white;
+  background-color: var(--button-bg);
+  color: var(--button-text);
   padding: 10px 30px;
-  border: 1px solid black;
+  border: 1px solid var(--border);
   text-transform: capitalize;
   cursor: pointer;
   transition: all ease .5s;
@@ -460,7 +542,7 @@ nav .pc-nav li a:hover{
 .login-page .register-sect a{
   text-decoration: none;
   font-weight: bold;
-  color: black;
+  color: var(--text-primary);
   transition: all ease-in-out .5s;
 }
 
@@ -495,6 +577,9 @@ nav .pc-nav li a:hover{
     width: 100%;
   }
 
+  .login-page form .confirm input{
+    width: 100%;
+  }
 }
 
 

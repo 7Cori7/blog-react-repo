@@ -130,6 +130,8 @@ app.post('/api/articles/:name/comments', async (req,res)=>{
 
     try{
 
+        if(!user || !name) return res.sendStatus(400);
+
         const article = await Article.findOneAndUpdate({name: name}, {$push: {comments: req.body}});
 
         await article.save();

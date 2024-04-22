@@ -12,6 +12,8 @@ export default function CommentsForm({url, articleName, updateArticle}){
 
         try {
 
+            if(!name || !comment) return;
+
             const obj = {
                 user: name,
                 text: comment
