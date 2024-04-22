@@ -9,7 +9,7 @@ import CommentsForm from "../components/comments-form.jsx";
 import Message from "../components/message.jsx";
 import Spinner from "../components/spinner.jsx";
 
-export default function ArticlePage({url}){
+export default function ArticlePage({url, theme}){
 
     const { currentUser } = useAuth();
     const {articleId} = useParams();
@@ -110,7 +110,7 @@ export default function ArticlePage({url}){
         
         <div className="upvotes-section">
             {
-                loading ? <Spinner />
+                loading ? <Spinner theme={theme} />
                 : <p>This article has {articleInfo.votes} upvote(s)</p>
             }
             <button onClick={upvoteArticle}>
@@ -134,7 +134,7 @@ export default function ArticlePage({url}){
             <CommentsForm url={url} articleName={articleId} updateArticle={getData} />
 
             {
-                loading ? <Spinner />
+                loading ? <Spinner theme={theme} />
                 : <CommentsList comments={articleInfo.comments} />
             }
         </div>

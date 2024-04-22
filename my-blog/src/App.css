@@ -250,6 +250,10 @@ nav .pc-nav li a:hover{
   width: 100%;
 }
 
+.titles, .title{
+  margin-top: 10%;
+}
+
 .article-content, .page-Content{
   margin: 2% 20%;
   text-align: justify;
@@ -278,6 +282,37 @@ nav .pc-nav li a:hover{
   .article-content, .page-Content{
     margin: 2% 5%;
     width: 100%;
+  }
+}
+
+
+/*----------------------MOST POPULAR LIST-----------------------*/
+.most-popular-sect{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: 10% auto;
+}
+
+.most-popular-sect h3{
+  text-transform: capitalize;
+}
+
+.most-popular-sect .articles-list .card{
+  margin: 0;
+}
+
+@media (max-width:768px){
+  .most-popular-sect{
+    width: 100%;
+  }
+  .most-popular-sect h3{
+    margin-left: 8%;
+  }
+  .most-popular-sect .articles-list .card{
+    margin: 0 10%;
+    width: 80%;
   }
 }
 

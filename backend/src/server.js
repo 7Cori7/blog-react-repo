@@ -67,6 +67,21 @@ app.get('/api/get/users', async (req, res)=>{
     }
 });
 
+// Get all articles info:
+app.get('/api/articles-info', async (req,res) => {
+
+    try {
+
+        const articleList = await Article.find();
+
+        return res.status(200).json({ok:true, data:articleList});
+        
+    } catch (error) {
+
+        return res.sendStatus(400);
+    }
+});
+
 // Load Article endpoint:
 app.get('/api/articles/:name', async (req,res)=>{
     

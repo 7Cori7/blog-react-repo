@@ -18,8 +18,8 @@ function App() {
 
   const url = import.meta.env.VITE_REACT_APP_API_URL; //<--así se usan las env en react
 
+  // Función para cambiar el tema:
   const [theme, setTheme] = useLocalStorage('theme', 'light');
-  
   function handleToggleTheme(){
     setTheme(t => t === 'light' ? 'dark' : 'light');
   };
@@ -48,13 +48,13 @@ function App() {
 
             <Routes>
 
-              <Route path='/' element={<HomePage />} />
+              <Route path='/' element={<HomePage url={url} theme={theme} />} />
 
               <Route path='/about' element={<AboutPage />} />
 
               <Route path='/articles' element={<ArticlesListPage />} />
 
-              <Route path='/articles/:articleId' element={<ArticlePage url={url} />} />
+              <Route path='/articles/:articleId' element={<ArticlePage url={url} theme={theme} />} />
 
               <Route path='/login' element={<LoginPage />} />
 
