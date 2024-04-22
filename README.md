@@ -1,4 +1,4 @@
-#Blog Website in React JS 📖
+# Blog Website in React JS 📖
 
 This is a simple demo for a blog website developed with MERN stack and firebase authentication.
 
