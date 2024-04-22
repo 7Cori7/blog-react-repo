@@ -13,6 +13,8 @@ More detailed features are:
 - The back-end was made with Node JS.
 - The front-end was created with the React/Vite libraries.
 
-And that's all, you would be able to try the demo very soon!
+And that's all, the front-end is hosted on vercel and the back-end is hosted on render.
 
-Take care~
+You can try the demo here --> https://blog-react-blue-mu.vercel.app/
+
+Thanks and take care~
