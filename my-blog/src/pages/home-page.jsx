@@ -87,7 +87,10 @@ export default function HomePage({url, theme}){
             <h3>Most popular articles:</h3>
             
             {
-                loadign ? <Spinner theme={theme} /> 
+                loadign
+                ?   <div style={{width: '90%'}}>
+                        <Spinner theme={theme} />
+                    </div>
                 :
                 <div className='articles-list'>
                     <ArticlesList articles={sortedArticles} />
