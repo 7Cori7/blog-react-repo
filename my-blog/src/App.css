@@ -50,7 +50,8 @@
     left: 0;
   }
   .spinner{
-    margin-left: 0;
+    display: flex;
+    justify-content: center;
   }
 }
 
