@@ -9,9 +9,9 @@ const port = 4000;
 const server = http.createServer(app);
 require("dotenv").config();
 
-const AboutPage = require('../models/About');
+////const AboutPage = require('../models/About');
 const Article = require('../models/Articles');
-const HomePage = require('../models/Home');
+////const HomePage = require('../models/Home');
 const Users = require('../models/User');
 
 app.use(express.json());
