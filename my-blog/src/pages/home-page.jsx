@@ -36,7 +36,7 @@ export default function HomePage({url, theme}){
 
         try {
             setLoadign(true);
-            const response = await axios.get(`${url}/api/articles-info`);
+            const response = await axios.get(`${url}/articles-info`);
             const data = response.data.data;
 
             if(data.length > 0){

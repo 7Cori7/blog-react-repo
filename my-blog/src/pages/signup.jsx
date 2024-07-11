@@ -59,7 +59,7 @@ export default function SignUpPage({url}){
                                 name: name
                             };
     
-                            await axios.post(`${url}/api/create/user`, obj);
+                            await axios.post(`${url}/create/user`, obj);
     
                             // Redirect to home page:
                             setTimeout(()=>{
@@ -87,7 +87,7 @@ export default function SignUpPage({url}){
 
         try {
 
-            const response = await axios.get(`${url}/api/get/users`);
+            const response = await axios.get(`${url}/get/users`);
             const data = response.data;
 
             if(data){

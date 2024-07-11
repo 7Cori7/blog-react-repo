@@ -75,7 +75,7 @@ export default function ArticlePage({url, theme}){
                     user: currentUser.email
                 }
 
-                await axios.put(`${url}/api/articles/${articleId}/upvote`, obj);
+                await axios.put(`${url}/articles/${articleId}/upvote`, obj);
                 
                 getData();
             }else{

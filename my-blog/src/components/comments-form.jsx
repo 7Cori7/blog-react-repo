@@ -19,7 +19,7 @@ export default function CommentsForm({url, articleName, updateArticle}){
                 text: comment
             };
             
-            await axios.post(`${url}/api/articles/${articleName}/comments`, obj);
+            await axios.post(`${url}/articles/${articleName}/comments`, obj);
 
             updateArticle();
 
@@ -34,7 +34,7 @@ export default function CommentsForm({url, articleName, updateArticle}){
     async function getUsername(){
         try {
 
-            const response = await axios.get(`${url}/api/get/users`);
+            const response = await axios.get(`${url}/get/users`);
             const usersList = response.data.data;
 
             if(usersList && usersList.length > 0 && currentUser){
