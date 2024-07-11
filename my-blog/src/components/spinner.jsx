@@ -1,6 +1,5 @@
 import spinnerB from '/spinner.svg';
 import spinnerW from '/spinnerW.svg';
-import useLocalStorage from './useLocalStorage';
 
 export default function Spinner({theme}){
 
