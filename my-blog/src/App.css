@@ -154,6 +154,12 @@ nav .pc-nav li a:hover{
   color: var(--button-text);
 }
 
+@media (max-width:850px){
+  nav{
+    width: 80%;
+  }
+}
+
 @media (max-width:768px){
   nav{
     width: 90%;
@@ -252,6 +258,13 @@ nav .pc-nav li a:hover{
   width: 100%;
 }
 
+#page-body .notFoundPage{
+  min-height: 70dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .titles, .title{
   margin-top: 10%;
 }
@@ -270,6 +283,12 @@ nav .pc-nav li a:hover{
   #page-body{
     width: 90%;
   }
+
+  #page-body .notFoundPage{
+    width: 100%;
+    transform: translateX(15px);
+  }
+
   .titles{
     width: 100%;
     display: flex;
@@ -623,11 +642,17 @@ nav .pc-nav li a:hover{
 /*------------------FOOTER---------------------*/
 
 .footer{
-  width: 100%;
+  width: 95%;
   display: flex;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
   margin-top: 10%;
   margin-bottom: 2%;
+}
+
+@media (max-width:768px){
+  .footer{
+    width: 100%;
+  }
 }
